@@ -8,9 +8,9 @@
 </head>
 
 <body>
-    <iframe src="silence.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
+    <button id="invisible-button" onclick="playMusic()"></button>
 
-    <audio id="background-music" autoplay loop>
+    <audio id="bgm" autoplay loop>
         <source src="biboo-bgm.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
@@ -34,6 +34,8 @@
 
     const sound = new Audio('dang-it-biboo.mp3')
     sound.volume = 0.75
+
+    document.getElementById("bgm").volume = 0.5;
 
     function handleClick(event) {
         // pressing enter counts as a mouse click??
@@ -74,6 +76,11 @@
 
     function handleKeyPress(event) {
         searchBar.focus()
+    }
+
+    function playMusic() {
+        document.getElementById("bgm").play();
+        document.getElementById("invisible-button").style.display = "none";
     }
 
     document.body.addEventListener('keyup', handleKeyPress)
@@ -192,6 +199,18 @@
         transform-origin: center;
         opacity: 0;
         transition-duration: 0.5s;
+    }
+
+    #invisible-button {
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; 
+        background: rgba(0, 0, 0, 0); 
+        border: none; 
+        cursor: pointer; 
+        z-index: 1000; 
     }
 </style>
 
