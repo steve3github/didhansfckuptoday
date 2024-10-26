@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>New Tab</title>
+</head>
+
+<body>
+    <main>
+        <h1>You have opened a new tab!</h1>
+        <img id="advent-img" src="biboo_wiggle.gif">
+        <form id="search-form" method="get" action="https://google.com/search">
+            <input id="search-bar" name="q" type="text" placeholder="Search the web" autofocus>
+            <input id="submit-button" value=">" type="submit">
+        </form>
+        <span id="dangit-counter">0 dangits</span>
+    </main>
+</body>
+
+<script>
+    const submit = document.getElementById('submit-button')
+    const searchBar = document.getElementById('search-bar')
+    const dangIt = document.getElementById('dangit-counter')
+    let dangIts = 0
+
+    const sound = new Audio('dang-it-biboo.mp3')
+    sound.volume = 0.75
+
+    const bgm = new Audio('biboo-bgm.mp3')
+    bgm.volume = 0.5
+
+    function handleClick(event) {
+        // pressing enter counts as a mouse click??
+        if (event.target == submit) {
+            return
+        }
+
+        // create a biboo
+        const biboo = document.createElement('img')
+        biboo.src = 'biboo.jpg'
+        biboo.className = 'popup'
+        biboo.style.left = (event.pageX - 20) + 'px'
+        biboo.style.top = (event.pageY - 20) + 'px'
+
+        // randomize biboo popup 
+        const randomScale = Math.random() * 10 + 1
+        const randomRotation = Math.random() * 360 - 180
+        setTimeout(() => {
+            biboo.className += ' disappear'
+            biboo.style.transform = `scale(${randomScale}) rotate(${randomRotation}deg)`
+        }, 1)
+
+        // add biboo to the dom
+        document.body.appendChild(biboo)
+
+        // cleanup biboo :(
+        setTimeout(() => {
+            biboo.remove()
+        }, 502)
+
+        // dang it!
+        sound.cloneNode().play()
+
+        // update counter
+        dangIts++
+        dangIt.innerHTML = dangIts + ' dangits'
+    }
+
+    function handleKeyPress(event) {
+        searchBar.focus()
+    }
+
+    document.body.addEventListener('keyup', handleKeyPress)
+    document.body.addEventListener('click', handleClick)
+</script>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        overflow: hidden;
+        user-select: none;
+        background: black;
+        color: white;
+        font-family: monospace;
+        display: flex;
+        justify-content: center;
+        width: 100svw;
+        height: 100svh;
+        padding-top: 2%;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #dangit-counter {
+        font-size: 2rem;
+        padding: 20px 80px;
+        animation: rgb 2s ease-in-out infinite;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+        animation: rgb 2s ease-in-out infinite;
+    }
+
+    #advent-img {
+        -webkit-user-drag: none;
+        display: block;
+        width: 500px;
+    }
+
+    @keyframes rgb {
+        0% {
+            color: blue
+        }
+
+        25% {
+            color: red
+        }
+
+        50% {
+            color: green
+        }
+
+        75% {
+            color: yellow
+        }
+
+        100% {
+            color: violet
+        }
+    }
+
+    form {
+        display: flex;
+    }
+
+    input {
+        flex-grow: 1;
+        display: block;
+        margin-inline: auto;
+        margin-top: 50px;
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        font-size: 1.5rem;
+        background-color: black;
+        color: #d487fa;
+        border: 2px solid gray;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    #submit-button {
+        font-size: 1rem;
+        font-weight: bold;
+        width: 50px;
+        top: 0;
+        right: 0;
+        border: 2px solid gray;
+        border-left: none;
+    }
+
+    #submit-button:hover {
+        background-color: #222;
+    }
+
+    .popup {
+        width: 40px;
+        aspect-ratio: 1;
+        position: absolute;
+        -webkit-user-drag: none;
+    }
+
+    .disappear {
+        transform-origin: center;
+        opacity: 0;
+        transition-duration: 0.5s;
+    }
+</style>
+
+</html>
