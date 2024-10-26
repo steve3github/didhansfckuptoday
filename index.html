@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <title>New Tab</title>
 </head>
 
 <body>
+    <iframe src="silence.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
+
+    <audio id="background-music" autoplay loop>
+        <source src="biboo-bgm.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
     <main>
         <h1>You have opened a new tab!</h1>
         <img id="advent-img" src="biboo_wiggle.gif">
@@ -26,9 +34,6 @@
 
     const sound = new Audio('dang-it-biboo.mp3')
     sound.volume = 0.75
-
-    const bgm = new Audio('biboo-bgm.mp3')
-    bgm.volume = 0.5
 
     function handleClick(event) {
         // pressing enter counts as a mouse click??
