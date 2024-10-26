@@ -9,15 +9,18 @@
 
 <body>
     <button id="invisible-button" onclick="playMusic()"></button>
-
+    
     <audio id="bgm" autoplay loop>
         <source src="biboo-bgm.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
     <main>
-        <h1>You have opened a new tab!</h1>
-        <img id="advent-img" src="biboo_wiggle.gif">
+        <h1 class="above">You have opened a new tab!</h1>
+        <img id="advent-img" class="above" onclick="multiplyImage()" src="breakdance-biboo.gif">
+
+        <div class="background-container" id="background-container"></div>
+
         <form id="search-form" method="get" action="https://google.com/search">
             <input id="search-bar" name="q" type="text" placeholder="Search the web" autofocus>
             <input id="submit-button" value=">" type="submit">
@@ -31,6 +34,7 @@
     const searchBar = document.getElementById('search-bar')
     const dangIt = document.getElementById('dangit-counter')
     let dangIts = 0
+    let biboo_images = 1;
 
     const sound = new Audio('dang-it-biboo.mp3')
     sound.volume = 0.75
@@ -72,6 +76,19 @@
         // update counter
         dangIts++
         dangIt.innerHTML = dangIts + ' dangits'
+
+        // add biboo images to background
+        const container = document.getElementById("background-container");
+        container.innerHTML = ''; 
+
+        const newCount = biboo_images + 1;
+
+        for (let i = 0; i < newCount; i++) {
+            const newDiv = document.createElement("div");
+            newDiv.classList.add("image");
+            container.appendChild(newDiv);
+        }
+        biboo_images++;
     }
 
     function handleKeyPress(event) {
@@ -105,6 +122,7 @@
         width: 100svw;
         height: 100svh;
         padding-top: 2%;
+        position: relative;
     }
 
     main {
@@ -201,6 +219,13 @@
         transition-duration: 0.5s;
     }
 
+    .image {
+        background-image: url('breakdance-biboo.gif'); 
+        background-size: cover; 
+        width: 100px;
+        height: 100px; 
+    }
+
     #invisible-button {
         position: fixed; 
         top: 0;
@@ -211,6 +236,25 @@
         border: none; 
         cursor: pointer; 
         z-index: 1000; 
+    }
+
+    .background-container {
+        position: absolute; 
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 0; 
+        pointer-events: none; 
+    }
+
+    .above {
+        position: relative; 
+        z-index: 1; 
+        cursor: pointer;
+        margin: 20px; 
     }
 </style>
 
