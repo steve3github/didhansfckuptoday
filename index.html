@@ -11,13 +11,13 @@
     <button id="invisible-button" onclick="playMusic()"></button>
     
     <audio id="bgm" autoplay loop>
-        <source src="biboo-bgm.mp3" type="audio/mp3">
+        <source src="biboo/biboo-bgm.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
     <main>
         <h1 class="above">You have opened a new tab!</h1>
-        <img id="advent-img" class="above" onclick="multiplyImage()" src="breakdance-biboo.gif">
+        <img id="advent-img" class="above" onclick="multiplyImage()" src="biboo/breakdance-biboo.gif">
 
         <div class="background-container" id="background-container"></div>
 
@@ -25,84 +25,13 @@
             <input id="search-bar" name="q" type="text" placeholder="Search the web" autofocus>
             <input id="submit-button" value=">" type="submit">
         </form>
-        <span id="dangit-counter">0 dangits</span>
+        <span id="soundBite-counter">0 dangits</span>
+
+        <button onclick="changeTheme(event)">Change Member</button>
     </main>
 </body>
 
-<script>
-    const submit = document.getElementById('submit-button')
-    const searchBar = document.getElementById('search-bar')
-    const dangIt = document.getElementById('dangit-counter')
-    let dangIts = 0
-    let biboo_images = 1;
-
-    const sound = new Audio('dang-it-biboo.mp3')
-    sound.volume = 0.75
-
-    document.getElementById("bgm").volume = 0.5;
-
-    function handleClick(event) {
-        // pressing enter counts as a mouse click??
-        if (event.target == submit) {
-            return
-        }
-
-        // create a biboo
-        const biboo = document.createElement('img')
-        biboo.src = 'biboo.jpg'
-        biboo.className = 'popup'
-        biboo.style.left = (event.pageX - 20) + 'px'
-        biboo.style.top = (event.pageY - 20) + 'px'
-
-        // randomize biboo popup 
-        const randomScale = Math.random() * 10 + 1
-        const randomRotation = Math.random() * 360 - 180
-        setTimeout(() => {
-            biboo.className += ' disappear'
-            biboo.style.transform = `scale(${randomScale}) rotate(${randomRotation}deg)`
-        }, 1)
-
-        // add biboo to the dom
-        document.body.appendChild(biboo)
-
-        // cleanup biboo :(
-        setTimeout(() => {
-            biboo.remove()
-        }, 502)
-
-        // dang it!
-        sound.cloneNode().play()
-
-        // update counter
-        dangIts++
-        dangIt.innerHTML = dangIts + ' dangits'
-
-        // add biboo images to background
-        const container = document.getElementById("background-container");
-        container.innerHTML = ''; 
-
-        const newCount = biboo_images + 1;
-
-        for (let i = 0; i < newCount; i++) {
-            const newDiv = document.createElement("div");
-            newDiv.classList.add("image");
-            container.appendChild(newDiv);
-        }
-        biboo_images++;
-    }
-
-    function handleKeyPress(event) {
-        searchBar.focus()
-    }
-
-    function playMusic() {
-        document.getElementById("bgm").play();
-        document.getElementById("invisible-button").style.display = "none";
-    }
-
-    document.body.addEventListener('keyup', handleKeyPress)
-    document.body.addEventListener('click', handleClick)
-</script>
+<script src="script.js"></script>
 
 <style>
     * {
@@ -112,7 +41,7 @@
     }
 
     body {
-        overflow: hidden;
+        overflow: auto;
         user-select: none;
         background: black;
         color: white;
@@ -131,7 +60,7 @@
         align-items: center;
     }
 
-    #dangit-counter {
+    #soundBite-counter {
         font-size: 2rem;
         padding: 20px 80px;
         animation: rgb 2s ease-in-out infinite;
@@ -220,7 +149,6 @@
     }
 
     .image {
-        background-image: url('breakdance-biboo.gif'); 
         background-size: cover; 
         width: 100px;
         height: 100px; 
