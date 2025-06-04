@@ -1,0 +1,39 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  padding-top: 100px;
+  background-color: #000000;
+}
+
+#question {
+  font-size: 4rem;
+  color: #c2d5eb;
+}
+
+#yes-word {
+  font-size: 4rem;
+  animation: rgb 2s ease-in-out infinite;
+  padding-top: 5%;
+}
+
+@keyframes rgb {
+    0% {
+        color: blue
+    }
+
+    25% {
+        color: red
+    }
+
+    50% {
+        color: green
+    }
+
+    75% {
+        color: yellow
+    }
+
+    100% {
+        color: violet
+    }
+}
