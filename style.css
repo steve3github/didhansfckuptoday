@@ -18,15 +18,19 @@ body {
   animation: rgb 4s ease-in-out infinite;
 }
 
+.flex-parent {
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  height: 50vh;           
+}
+
 .orbit-container {
   position: relative;
   width: 300px;
   height: 300px;
-  margin: auto;
   border-radius: 50%;
   overflow: visible;
-  padding-top: 5%;
-  margin-left: 37%;
 }
 
 .orbiting-text {
