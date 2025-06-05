@@ -3,6 +3,7 @@ body {
   text-align: center;
   padding-top: 100px;
   background-color: #000000;
+  perspective: 600px; 
 }
 
 #question {
@@ -10,30 +11,71 @@ body {
   color: #c2d5eb;
 }
 
-#yes-word {
+.yes-word {
+  display: inline-block;
   font-size: 4rem;
-  animation: rgb 2s ease-in-out infinite;
+  transform-origin: center;
+  animation: rgb 4s ease-in-out infinite;
+}
+
+.orbit-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  border-radius: 50%;
+  overflow: visible;
   padding-top: 5%;
+  margin-left: 37%;
+}
+
+.orbiting-text {
+  --total: 8;
+  --angle: calc(360deg / var(--total) * var(--i));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center 200px;
+  transform: rotate(var(--angle)) translateY(-100px) rotate(calc(-1 * var(--angle)));
+  animation: orbit 8s linear infinite,
+             rgb 4s ease-in-out infinite;
+  animation-delay: calc(-2s * var(--i)); /* stagger start */
+  font-size: 3rem;
+  white-space: nowrap;
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(var(--angle)) translateY(-150px) rotate(calc(-1 * var(--angle)));
+  }
+  to {
+    transform: rotate(calc(var(--angle) + 360deg)) translateY(-150px) rotate(calc(-1 * (var(--angle) + 360deg)));
+  }
 }
 
 @keyframes rgb {
     0% {
-        color: blue
+        color: blue;
+        /* transform: rotateX(0deg) rotateY(0deg); */
     }
 
     25% {
-        color: red
+        color: red;
+        /* transform: rotateX(360deg) rotateY(0deg); */
     }
 
     50% {
-        color: green
+        color: green;
+        /* transform: rotateX(360deg) rotateY(0deg); */
     }
 
     75% {
-        color: yellow
+        color: yellow;
+        /* transform: rotateX(360deg) rotateY(360deg); */
     }
 
     100% {
-        color: violet
+        color: purple;
+        /* transform: rotateX(360deg) rotateY(360deg); */
     }
 }

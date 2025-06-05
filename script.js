@@ -30,7 +30,14 @@ const day = getDayOfYear();
 const index = day % yesWords.length;
 const todayYes = yesWords[index];
 
-document.getElementById("yes-word").textContent = yesWords[index];
+// document.getElementsByClassName("yes-word").textContent = yesWords[index];
+
+const elements = document.querySelectorAll(".yes-word");
+
+elements.forEach(el => {
+  el.textContent = yesWords[index];
+});
+
 
 // class AdventMember {
 //    constructor(folder, bgm, soundBite, pic, gif, counter) {
